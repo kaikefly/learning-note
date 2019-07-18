@@ -2,7 +2,7 @@
 word2vec 是一种训练词向量的工具，可以将词库中的所有词语映射到 $k$ 维的向量中。主要有两种训练方式，CBOW 和 skip-gram，CBOW 根据上下文来预测目标单词，skip-gram 根据目标单词来预测上下文。下面进行两种方式的数学推导。
 ## CBOW
 ### 1. One-word context
-![cbow](figures/cbow.jpg)
+![cbow](https://github.com/kaikefly/learning-note/blob/master/figures/cbow.jpg)
 假设词表大小为 $V$，隐藏层大小为 $N$，input-hidden 权重矩阵为 $W_{V*N}$，其中第 $k$ 行的转置为 $v_k$，hidden-output 的权重矩阵为 $W'_{N*V}$，其中第 $j$ 列为 $v'_j$。计算过程如下：
 $$h = v_k$$
 $$u_j = {v'_j}^T * h$$
