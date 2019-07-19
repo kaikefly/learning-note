@@ -7,5 +7,5 @@ A collection of notes and thinkings.
 * [dropout]()
 
 ## NLP
-* [keyword extraction](https:/github.com/kaikefly/learning-note/blob/master/nlp/keyword-extration)
+* [keyword extraction](https://github.com/kaikefly/learning-note/blob/master/nlp/keyword-extraction)
 * [word2vec](https://github.com/kaikefly/learning-note/blob/master/nlp/word2vec.pdf)
