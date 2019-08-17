@@ -11,5 +11,5 @@ A collection of notes and thinkings.
 * [keyword extraction](https://github.com/kaikefly/learning-note/blob/master/nlp/keyword-extraction)
 * [word2vec](https://github.com/kaikefly/learning-note/blob/master/nlp/word2vec.pdf)
 
-## Math
-* [math](https://github.com/kaikefly/learning-note/blob/master/math)
+## Recommendation
+* [recommendation](https://github.com/kaikefly/learning-note/blob/master/recommendation)
