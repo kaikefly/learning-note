@@ -8,7 +8,7 @@ A collection of notes and thinkings.
 
 ## Deep Learning
 * [batch normalization](https://github.com/kaikefly/learning-note/blob/master/deep_learning/batch_normalization.ipynb)
-* [layer normalization]()
+* [layer normalization](https://github.com/kaikefly/learning-note/blob/master/deep_learning/layer_normalization.ipynb)
 * [dropout]()
 
 ## Recommendation
