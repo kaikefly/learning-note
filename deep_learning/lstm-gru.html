@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>lstm&gru</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h3 id="toc_0">Gated Recurrent Neural Networks</h3>
+
+<p>本文主要介绍 RNN 中常用的 LSTM 和 GRU 单元，并进行比较。</p>
+
+<h4 id="toc_1">Introduction</h4>
+
+<p>RNN 在许多机器学习任务中有比较好的结果，特别是输入和输出是变长的情况，这些好的效果往往是通过加入一些高级的 recurrent hidden units 来实现的，而不是传统的 \(tanh\) 单元，如 LSTM，GRU。本文在序列建模任务中评估了这两种单元和更传统的 \(tanh\) 单元。</p>
+
+<p>根据实验结果，在一些数据集上，使用固定数目的参数，GRU 要比 LSTM 表现好。</p>
+
+<h4 id="toc_2">Backgroud</h4>
+
+<p>RNN 可以处理变长序列输入，通过一个递归隐藏状态，其值依赖于上一个时刻的值。即，给定序列 \(x=(x_1,x_2,\dots,x_T)\)，隐藏状态更新为：
+\[h(t)=
+\begin{cases}
+0,&amp; \text{t=0}\\
+\phi(h_{t-1},x_t),&amp; \text{otherwise}
+\end{cases}\]
+其中，\(\phi\) 是非线性函数，比如 sigmoid，上式也可写为：
+\[h_t=g(Wx_t+Uh_{t-1})\]
+有生成任务的 RNN（比如文本生成、机器翻译等），给定当前状态 \(h_t\)，对序列的下一个元素生成一个概率分布，并可以通过使用 EOS 来获取变长序列的分布。序列概率可分解为：
+\[p(x_1,\cdots,x_T)=p(x_1)p(x_2|x_1)p(x_3|x_1,x_2)\cdots p(x_T|x_1,\cdots,x_{T-1})\]
+每个条件概率分布可建模为：
+\[p(x_t|x_1,\cdots,x_{t-1})=g(h_t),\]
+\(h_t\) 就是上面的隐藏状态。</p>
+
+<p>但该模型的问题是，获取长时依赖是很难的，因为存在梯度消失（大多数情况）和梯度爆炸（出现较少）问题，这使得基于梯度的优化方法难以奏效。有两种主流的方法来解决该问题：一是设计比 SGD 更好的学习算法，比如使用 <em>clipped gradient</em>，二是设计更高级的激活函数或循环单元，这就引入了 LSTM 和 GRU。</p>
+
+<h4 id="toc_3">Gated Recurrent Neural Networks</h4>
+
+<h5 id="toc_4">Long Short-Term Memory Unit</h5>
+
+<p>长短时记忆（lstm）单元最早提出于 1997 年，随后，有很多种方法对其做了微小改动。每个 LSTM 单元在时刻 \(t\) 有记忆单元 \(c_t\)，则 LSTM 单元的输出为 \(h_t\):
+\[h_t=o_t\tanh(c_t)\]
+其中，\(o_t\) 是输出门，用来控制长期记忆对当前输出的影响，输出门的计算为：
+\[o_t=\sigma(W_o\textbf{x}_t+U_o\textbf{h}_{t-1}+V_o\textbf{c}_t)\]
+\(\sigma\) 为 sigmoid 函数，\(V_o\) 为对角矩阵。
+记忆单元 \(c_t\) 通过部分忘记已有记忆，然后加入新的记忆内容 \(\tilde{c}_t\) 来更新：
+\[c_t=f_tc_{t-1}+i_t\tilde{c}_t\]
+其中，新的记忆内容为：
+\[\tilde{c}_t=\tanh(W_c\textbf{x}_t+U_c\textbf{h}_{t-1})\]
+当前记忆被忘记的程度由遗忘门 \(f_t\) 控制，新的记忆内容被加入到记忆单元的程度由输入门 \(i_t\) 控制，计算方式为：
+\[f_t=\sigma(W_f\textbf{x}_t+U_f\textbf{h}_{t-1}+V_f\textbf{c}_{t-1}),\\
+i_t=\sigma(W_i\textbf{x}_t+U_i\textbf{h}_{t-1}+V_i\textbf{c}_{t-1}).\]
+\(V_f\) 和 \(V_i\) 都是对角矩阵。</p>
+
+<p>LSTM 通过这些门来决定是否保留当前记忆单元，直觉上来说，如果 LSTM 单元在早阶段能捕获到输入序列的重要特征，它就可以容易地将这些信息传递下去。</p>
+
+<h5 id="toc_5">Gated Recurrent Unit</h5>
+
+<p>与 LSTM 相似的是 GRU 也有门单元，来控制 unit 之间的信息流，不同的是，GRU 没有单独的记忆单元。</p>
+
+<p>时刻 \(t\) GRU 的激活 \(h_t\) 是上一个激活 \(h_{t-1}\) 和 候选激活的 \(\tilde{h}_t\) 的线性插值：
+\[h_t=(1-z_t)h_{t-1}+z_t\tilde{h}_t\]
+其中，更新门 \(z_t\) 控制单元更新程度，计算如下：
+\[z_t=\sigma(W_z\textbf{x}_t+U_z\textbf{h}_{t-1})\]
+将已有状态和新状态做线性求和和 LSTM 是类似的，但 GRU 没有机制来控制单元 expose 的程度，在每个时刻都 expose 整个状态。</p>
+
+<p>候选激活\(\tilde{h}_t\) 计算方式为：
+\[\tilde{h}_t=\tanh(W\textbf{x}_t+U(\textbf{r}_t\odot\textbf{h}_{t-1}))\]
+其中，\(\textbf{r}_t\) 是一组重置门，当关闭的时候（\(r_t\) 接近 0），重置门相当于让单元读取输入序列的第一个字符，忘记之前计算的状态。</p>
+
+<p>重置门 \(r_t\) 计算如下：
+\[r_t=\sigma(W_r\textbf{x}_t+U_r\textbf{h}_{t-1})\]
+更新门用于控制前一时刻的状态信息被带入到当前状态中的程度，更新门的值越大说明前一时刻的状态信息带入越多。重置门控制前一状态有多少被写入到当前的候选集 \(\tilde{h}_t\) 上，重置门越小，前一状态的信息被写入的越少。</p>
+
+<h5 id="toc_6">Discussion</h5>
+
+<p>LSTM 和 GRU 的相同点主要为：</p>
+
+<ul>
+<li>传统的 recurrent unit 仅仅使用根据当前输入和上个隐藏状态的值计算出的新值来替代单元的内容，而 LSTM 和 GRU 会保留当前内容，在上面加入新内容。</li>
+</ul>
+
+<p>不同点在于：</p>
+
+<ol>
+<li><p>对 memory 的控制：</p>
+
+<p>LSTM: 用输出门控制，传递给下一个 unit</p>
+
+<p>GRU: 直接传递给下一个 unit，不作任何控制</p></li>
+<li><p>input gate 和 reset gate 作用位置不同</p>
+
+<p>LSTM: 计算 \(\tilde{c}_t\) 时，不对上一时刻的信息做任何控制，而是用 forget gate 独立实现这一点；
+GRU: 计算 \(\tilde{h}_t\) 时，利用 reset gate 对上一时刻的信息进行控制。</p></li>
+</ol>
+
+<p>标准 LSTM 和 GRU 的差别并不大，但是都比 tanh 要明显好很多，所以在选择标准 LSTM 或者 GRU 的时候还要看具体的任务是什么。 </p>
+
+<p>使用 LSTM 的原因之一是解决 RNN Deep Network 的梯度错误累积太多，以至出现梯度消失和梯度爆炸，使训练难以继续。GRU 的构造更简单：比 LSTM 少一个 gate，这样就少几个矩阵乘法。在训练数据很大的情况下 GRU 能节省很多时间。</p>
+
+
+
+<script type="text/x-mathjax-config">
+(function () {
+
+MathJax.Hub.Config({
+	'showProcessingMessages': false,
+	'messageStyle': 'none'
+});
+
+if (typeof MathJaxListener !== 'undefined') {
+	MathJax.Hub.Register.StartupHook('End', function () {
+		MathJaxListener.invokeCallbackForKey_('End');
+	});
+}
+
+})();
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+
+</html>
