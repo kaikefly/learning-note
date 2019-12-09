@@ -6,7 +6,8 @@ A collection of notes and thinkings.
 * [keyword extraction](nlp/keyword-extraction)
 * [word2vec](nlp/word2vec.pdf)
 * [transformer](nlp/transformer.ipynb)
-* [GPT](nlp/gpt.ipynb)
+* [gpt](nlp/gpt.ipynb)
+* [bert](nlp/bert-codes.ipynb)
 
 ## Deep Learning
 * [batch normalization](deep-learning/batch_normalization.ipynb)
